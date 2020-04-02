@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- <li v-for="(item,index) in place">{{index}},{{item}}</li> -->
+            <li v-for="item in vegetables">{{item.name}}</li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                place:["北京","上海","广州","深圳"],
+                vegetables:[
+                    {name:"西红柿"},
+                    {name:"芹菜"}
+                ]
+            },
+            methods:{
+            }
+        })
+    </script>
+
+</body>
+</html>

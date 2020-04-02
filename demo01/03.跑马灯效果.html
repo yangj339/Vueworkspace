@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="浪起来" @click="lang">
+        <input type="button" value="低调" @click="di">
+        <h4>{{msg}}</h4>
+    </div>
+
+    <script>
+        //注意：在vm实例中，如果想要获取data上的数据，或者想要调用methods中的方法，必须通过this.数据属性名 或this.方法名来进行访问，这里的this，就表示我们new出来的vm实例对象
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '跑马灯，跑起来~~',
+                intervalid:null
+            },
+            methods: {
+
+                lang() {
+                    if(this.intervalid==null){
+                        this.intervalid= setInterval(() => {
+                            var start = this.msg.substring(0, 1)
+                            var end = this.msg.substring(1)
+                            this.msg = end + start
+                        }, 400);
+                    }
+
+                },
+                di() {
+                    clearInterval(this.intervalid)
+                    this.intervalid=null
+                }
+            }
+        })
+
+
+
+        //分析：
+        //1.给【浪起来】 按钮，绑定一个点击事件
+        //2.在按钮的事件处理函数中，写相关的业务逻辑代码
+    </script>
+
+</body>
+
+</html>

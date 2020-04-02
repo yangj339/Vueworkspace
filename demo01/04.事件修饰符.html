@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+<style>
+    .inner {
+        height: 1500;
+        background-color: blueviolet;
+    }
+</style>
+
+<body>
+
+    <div id="app">
+        <!-- 使用.stop，实现阻止冒泡 
+        <div class="inner" @click="inclick">
+            <input type="button" value="点它" @click.stop="outclick">
+        </div> -->
+        <!-- 使用,prevent，实现阻止默认行为 
+        <a href="http://www.baidu.com" @click.prevent="pre">哈哈</a>-->
+        
+        <!-- 
+            使用.capture，实现添加事件监听时使用事件捕获模式
+            <div class="inner" @click.capture="inclick">
+                <input type="button" value="点它" @click="outclick">
+            </div>
+         -->
+
+        <!-- .self只当事件在该元素本身（不如不是子元素）触发时触发回调
+         <div class="inner" @click.self="inclick">
+                <input type="button" value="点它" @click="outclick">
+            </div>'
+         -->
+
+        <!-- .once事件只触发一次 
+        <div class="inner" @click.once="inclick">
+            <input type="button" value="点它" @click="outclick">
+        </div>
+        -->
+
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                inclick() {
+                    console.log('这是触发了内部的点击事件。')
+                },
+                outclick() {
+                    console.log('这是触发了外部的点击事件。')
+                },
+                pre() {
+                    console.log('触发了默认事件')
+                }
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

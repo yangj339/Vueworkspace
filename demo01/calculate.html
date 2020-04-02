@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>calculate</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="input-num">
+            <button @click="sub">
+                -
+            </button>
+            <span>{{ num }}</span>
+            <button @click="add">
+                +
+            </button>
+        </div>
+    
+    <script>
+        var app = new Vue({
+            el : "#app",
+            data:{
+                num:1
+            },
+            methods:{
+                add:function(){
+                    var num =this.num;
+                    if(num >= 10){
+                        alert('大于10了，不能再加了');
+                        return;
+                    }else{
+
+                        this.num++;
+                    }
+                },
+                sub:function(){
+                    var num = this.num;
+                    if(num <= 0){
+                        alert('小于0了，不能再减了');
+                        return;
+                    }else{
+
+                        this.num--;
+                    }
+                }
+            }
+        })
+    </script>
+
+    </div>
+    
+</body>
+</html>
+
