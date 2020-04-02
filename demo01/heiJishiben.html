@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <section id="todoApp">
+        <section id="header">
+            <input type="text" placeholder="请输入任务" @keyup.enter="addArr" v-model="inputStr">
+        </section>
+
+        <section id="body">
+            <ul class="todo-list">
+                <li v-for="(item,index) in listArr">
+                    <span>{{index+1}}</span>
+                    <label>{{item}}</label><button @click="remove(index)">x</button>
+                </li>
+            </ul>
+        </section>
+        
+        <section id="footer" v-if="this.listArr.length!=0">
+            <strong>{{listArr.length}}</strong>
+            <span>items left</span>
+            &nbsp;&nbsp;&nbsp;
+            <span @click="clear">clear</span>
+        </section>
+    </section>
+
+    <script>
+        var app = new Vue({
+            el:"#todoApp",
+            data:{
+                listArr:['aa','bb','cc'],
+                inputStr:"",
+                item:""
+            },
+            methods:{
+                addArr:function(){
+                    this.listArr.push(this.inputStr);
+                    console.log(this.listArr.length)
+                },
+                clear:function(){
+                    this.listArr.splice(0)
+                },
+                remove : function(val) { 
+                    this.listArr.splice(val,1)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
