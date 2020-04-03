@@ -8,23 +8,28 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- 官网提供的axios的在线地址 -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <script>
-        /*
-            接口：随机获取一条笑话
-            请求地址：https://autumnfish.cn/api/joke
-            请求方法：get
-            请求参数：无
-            响应内容：随机笑话
-        */
-    </script>
+    
 </head>
 
 <body>
+    <div class="page-header">
+        <h1>page header <small>Subtext for header</small></h1>
+      </div>
     <div id="app">
-        <input type="button" value="获取笑话" @click="getJoke">
+        <input type="button" value="知乎" @click="getNews(1)" class="btn btn-default btn-sm">
+        <input type="button" value="Segmentfault" @click="getNews(60)" class="btn btn-default btn-sm">
+        <input type="button" value="吾爱破解" @click="getNews(125)" class="btn btn-default btn-sm">
         <br>
-        <span>{{joke}}</span>
+        <ul id="news-list" class="list-group">
+            <li v-for="(item,index) in list" class="list-group-item list-group-item-warning">
+                <span>{{index+1}}&nbsp;</span>
+                <a href="#" @click="aclick(item.url)" >{{item.title}}</a>
+                <!-- <input type="button" @click="aclick(item.url)" value="item.title"></input> -->
+            </li>
+        </ul>
     </div>
 
 </body>
@@ -32,15 +37,24 @@
         var app = new Vue({
             el:"#app",
             data:{
-                joke:"nice joke"
+               
+                list:[]
             },
             methods:{
-                getJoke:function(){
+                getNews:function(id){
                     var that = this;
-                    axios.get("https://autumnfish.cn/api/joke").then(function(response){
-                        that.joke = response.data
-                        console.log(that)
+                    that.list=[];
+                    axios.get("https://www.printf520.com:8080/GetTypeInfo?id="+id).then(function(response){
+                       
+                       for(i=0;i<response.data.Data.length;i++){
+                        that.list.push(response.data.Data[i])
+                       }
+                       
                     })
+                },
+                aclick:function(url){
+                    //history.go(0)
+                    window.open(url)
                 }
             }
         })
