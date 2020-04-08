@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src --dest dist",
+    "deploy": "bash deploy.sh"
+  }
+}

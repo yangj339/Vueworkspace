@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>今日热榜</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+    <!-- 官网提供的axios的在线地址 -->
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://cdn.bootcss.com/babel-polyfill/7.8.7/polyfill.js"></script>
+
+    
+</head>
+
+
+<keep-alive>
+<body>
+        
+        <header class="navbar navbar-static-top bs-docs-nav">
+            <span class="navbar-brand"><span id="datetime"></span>&nbsp;热榜</span>
+            <span class="navbar-brand" style="color: red;"></span>
+            
+            <!-- <span id="datetime"></span> -->
+        </header>
+        <!-- <div class="page-header">
+            <h1>page header <small>Subtext for header</small></h1>
+            <span id="datetime"></span>
+          </div> -->
+        <div id="app">
+            <nav id="bs-navbar" class="navbar-collapse collapse" style="height: 1px;">
+                <!-- <ul class="nav navbar-nav">
+                    <li><a href="#" @click="getNews(1)">知乎</a></li>
+                    <li><a href="#" @click="getNews(60)">segmentfault</a></li>
+                    <li><a href="#" @click="getNews(125)">吾爱破解</a></li>
+    
+                </ul> -->
+            
+            </nav>
+            <div class="col-md-9" role="main">
+    
+                <input type="button" id="zhihu" value="知乎" @click="getNews(1)" class="btn btn-default btn-sm">
+                <input type="button" value="微博热搜" @click="getNews(58)" class="btn btn-default btn-sm">
+                <input type="button" value="网易" @click="getNews(10)" class="btn btn-default btn-sm">
+                <input type="button" value="虎扑" @click="getNews(2)" class="btn btn-default btn-sm">
+                <input type="button" value="虎嗅" @click="getNews(8)" class="btn btn-default btn-sm">
+                <input type="button" value="it之家" @click="getNews(112)" class="btn btn-default btn-sm">
+                <input type="button" value="cnBeta" @click="getNews(1018)" class="btn btn-default btn-sm">
+                <input type="button" value="什么值得买" @click="getNews(117)" class="btn btn-default btn-sm">
+                <input type="button" value="v2ex" @click="getNews(59)" class="btn btn-default btn-sm">
+                <input type="button" value="吾爱破解" @click="getNews(125)" class="btn btn-default btn-sm">
+                <input type="button" value="github" @click="getNews(85)" class="btn btn-default btn-sm">
+                <br>
+                <ul id="news-list" class="list-group">
+                    <li v-for="(item,index) in list" class="list-group-item list-group-item-warning">
+                        <span>{{index+1}}&nbsp;</span>
+                        <a href="#" @click="aclick(item.url)" >{{item.title}}</a>
+                        <!-- <input type="button" @click="aclick(item.url)" value="item.title"></input> -->
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3" role="complementary">
+                <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
+                    <ul class="nav bs-docs-sidenav">
+                        <li>
+                           
+                        </li>
+                    </ul>
+                    <a href="#top" class="back-to-top">回到顶部</a>
+                </nav>
+            </div>
+        </div>
+        <footer class="navbar-fixed-bottom">
+               <div class="container">
+                 
+               </div>
+         </footer>
+         
+         
+        </body>
+    </keep-alive>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                list:[]
+            },
+            methods:{
+                getNews:function(id){
+                    var that = this;
+                    that.list=[];
+                    axios.get("https://www.printf520.com:8080/GetTypeInfo?id="+id).then(function(response){
+                       
+                       for(i=0;i<response.data.Data.length;i++){
+                        that.list.push(response.data.Data[i])
+                       }
+                       
+                    })
+                },
+                aclick:function(url){
+                    //history.go(0)
+                    window.open(url)
+                }
+            }
+        })
+    </script>
+
+
+<div id="">
+    <script>
+        //setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
+        // setInterval("document.getElementById('datetime').innerHTML=new Date().getFullYear()+'-'+new Date().getMonth()+'-'+new Date().getDate();", 1000);
+        document.getElementById('datetime').innerHTML=new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' ';
+    </script>
+
+<script>
+    // 进入页面立即触发
+    // (()=>{
+    //     // 兼容IE
+    //     if(document.all) {
+    //         document.getElementById("zhihu").click();
+    //     }
+    //     // 兼容其它浏览器
+    //     else {
+    //         var e = document.createEvent("MouseEvents");
+    //         e.initEvent("click", true, true);
+    //         document.getElementById("zhihu").dispatchEvent(e);
+    //     }
+    // })();
+
+    window.onload=function(){
+        if(document.all) {
+            document.getElementById("zhihu").click();
+        }
+        // 兼容其它浏览器
+        else {
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("zhihu").dispatchEvent(e);
+        }
+}
+
+
+/*	// 也可写个定时器进行触发
+    setTimeout(()=>{
+        // 兼容IE
+        if(document.all) {
+            document.getElementById("aid").click();
+        }
+        // 兼容其它浏览器
+        else {
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("aid").dispatchEvent(e);
+        }
+    },3000); // 3秒后执行	*/
+</script>
+</div>
+</html>
